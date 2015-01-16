@@ -46,7 +46,7 @@ bool sendMessage(int action){
 	//Stop listening
 	radio.stopListening();
 	//unsigned long message = action;
-	printf("Now sending  %lu...", message);
+	//printf("Now sending  %lu...", message);
 
 	//Send the message
 	//bool ok = radio.write( &message, sizeof(unsigned long) );
