@@ -34,6 +34,7 @@ void setup() {
   Serial.println(F("*** PRESS 'T' to begin transmitting to the other node"));
   
   radio.begin();
+  radio.setPALevel(RF24_PA_MAX);
   
   // Open a writing and reading pipe on each radio, with opposite addresses
   if(radioNumber){

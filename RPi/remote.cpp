@@ -28,10 +28,10 @@ void setup(void){
 	radio.begin();
 	radio.setRetries( 15, 15);
 	//	radio.setChannel(0x4c);
-	//	radio.setPALevel(RF24_PA_MAX);
+	radio.setPALevel(RF24_PA_MAX);
 	//	radio.setPALevel(RF24_PA_MAX);
 
-	radio.printDetails();
+	//radio.printDetails();
 	radio.openWritingPipe(pipes[0]);
 	radio.openReadingPipe(1,pipes[1]);
 	//	radio.startListening();
