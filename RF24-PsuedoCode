@@ -1,0 +1,36 @@
+To Write out:
+ // Setup
+ RF24 radio(CE, CSN)
+ radio.openWritingPipe(add[1])
+ radio.openReadingPipe(add[0])
+ radio.startListening()
+ // Write
+ radio.stopListening()
+ radio.write(buf, len)
+ // Recieve Ack
+ radio.startListening()
+ while(!radio.available()) {
+ 	track a timeout, e.g. 20000ms
+ }
+ if (timeout) {
+ 	failed
+ } else {
+ 	radio.read(buf, len)
+ }
+
+To Read:
+ // Setup
+ RF24 radio(CE, CSN)
+ radio.openWritingPipe(add[0])
+ radio.openReadingPipe(add[1])
+ // Read
+ radio.startListening()
+ if (radio.available()) {
+ 	while(radio.available()) {
+ 		radio.read(buf, len)
+ 	}
+ 	// Send Ack
+ 	radio.stopListening()
+ 	radio.write(buf, len)
+ 	radio.startListening()
+ }
