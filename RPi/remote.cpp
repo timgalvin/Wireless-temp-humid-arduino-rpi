@@ -17,6 +17,11 @@ const uint64_t pipes[2] = { 0xF0F0F0F0E1LL, 0xF0F0F0F0D2LL };
 // hack to avoid SEG FAULT, issue #46 on RF24 github https://github.com/TMRh20/RF24.git
 unsigned long  got_message;
 
+struct dataStruct{
+  float temperature = 0.0;
+  float humidity = 0.0;  
+}sensorData; 
+
 void setup(void){
 	//Prepare the radio module
 	printf("\nPreparing interface\n");
@@ -38,11 +43,12 @@ bool sendMessage(int action){
 	//Returns true if ACK package is received
 	//Stop listening
 	radio.stopListening();
-	unsigned long message = action;
+	//unsigned long message = action;
 	printf("Now sending  %lu...", message);
 
 	//Send the message
-	bool ok = radio.write( &message, sizeof(unsigned long) );
+	//bool ok = radio.write( &message, sizeof(unsigned long) );
+	bool ok = radio.write( &sensorData, sizeof(sensorData) );
 	if (!ok){
 		printf("failed...\n\r");
 	}else{
@@ -66,8 +72,11 @@ bool sendMessage(int action){
 		return false;
 	}else{
 		//If we received the message in time, let's read it and print it
-		radio.read( &got_message, sizeof(unsigned long) );
-		printf("Yay! Got this response %lu.\n\r",got_message);
+		//radio.read( &got_message, sizeof(unsigned long) );
+		radio.read( &sensorData, sizeof(sensorData) );
+		//printf("Yay! Got this response %lu.\n\r",got_message);
+		printf("Received Humidity: %.2f\n\r", sensorData.humidity);
+		printf("Received Temperature: %.2f\n\r", sensorData.temperature);
 		return true;
 	}
 
