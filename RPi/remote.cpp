@@ -18,8 +18,8 @@ const uint64_t pipes[2] = { 0xF0F0F0F0E1LL, 0xF0F0F0F0D2LL };
 unsigned long  got_message;
 
 struct dataStruct{
-  float temperature = 0.0;
-  float humidity = 0.0;  
+  float temperature;
+  float humidity;  
 }sensorData; 
 
 void setup(void){
@@ -36,6 +36,8 @@ void setup(void){
 	radio.openReadingPipe(1,pipes[1]);
 	//	radio.startListening();
 
+	sensorData.temperature = 0.0;
+	sensorData.humidity = 0.0;
 }
 
 bool sendMessage(int action){
